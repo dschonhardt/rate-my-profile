@@ -15,11 +15,7 @@ var profileData = {
 	}]
 };
 
-
-phantom.create(function(ph) {
-	return ph.createPage(function(page) {
-		return page.open("http://www.okcupid.com/profile/" + profileData.username, function(status) {
-			page.evaluate(function() {
+var fn = function() {
 
 
 				function evaluator (data) {
@@ -108,7 +104,12 @@ phantom.create(function(ph) {
 				}
 
 				return result;
-			}, function(result) {
+			}
+
+phantom.create(function(ph) {
+	return ph.createPage(function(page) {
+		return page.open("http://www.okcupid.com/profile/" + profileData.username, function(status) {
+			page.evaluate(fn, function(result) {
 				console.log('userdata' + JSON.stringify(result));
 				ph.exit();
 			});
