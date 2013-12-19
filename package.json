@@ -10,7 +10,8 @@
     "q": "~0.9.7",
     "express": "3.4.0",
     "jshtml": "*",
-    "less-middleware": "*"
+    "less-middleware": "*",
+    "lodash": "~2.4.1"
   },
   "devDependencies": {
     "lodash": "~2.2.1",

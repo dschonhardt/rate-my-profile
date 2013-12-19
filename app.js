@@ -35,8 +35,10 @@ app.get('/users', user.list);
 
 scanner.open();
 
-app.get('/user/:name', function (req, res) {
-	scanner.scan(req.params.name)
+app.get('/:profile/:name', function (req, res) {
+	var profile = require('./lib/profiles/' + req.params.profile);
+
+	scanner.scan(profile.url(req.params.name), profile.config())
 		.then(function (result) {
 			res.send(result);
 		})
