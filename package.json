@@ -20,10 +20,12 @@
     "sinon-chai": "~2.4.0",
     "chai-as-promised": "~4.0.0",
     "mocha-as-promised": "~1.4.0",
-    "istanbul": "~0.1.44"
+    "istanbul": "~0.1.44",
+    "require-hijack": "~1.2.1"
   },
   "scripts": {
-    "test": "mocha --reporter spec --recursive --ui bdd"
+    "test": "mocha --reporter spec --recursive --ui bdd",
+    "start": "node app.js"
   },
   "repository": "",
   "author": "",

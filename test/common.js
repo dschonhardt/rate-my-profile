@@ -6,3 +6,5 @@ expect = chai.expect;
 chai.use(sinonChai);
 chai.use(require("chai-as-promised"));
 require("mocha-as-promised")();
+
+requireHijack = require('require-hijack');
