@@ -2,14 +2,15 @@
   "name": "okcupid",
   "version": "0.0.0",
   "description": "ERROR: No README.md file found!",
-  "main": "scanner.js",
+  "main": "app.js",
   "dependencies": {
     "request": "~2.30.0",
-    "jquery": "~1.8.3",
     "node-phantom": "~0.2.5",
     "phantom": "~0.5.4",
-    "lodash": "~2.4.1",
-    "q": "~0.9.7"
+    "q": "~0.9.7",
+    "express": "3.4.0",
+    "jshtml": "*",
+    "less-middleware": "*"
   },
   "devDependencies": {},
   "scripts": {
