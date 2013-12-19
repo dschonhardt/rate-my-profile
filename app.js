@@ -38,8 +38,6 @@ scanner.open();
 app.get('/user/:name', function (req, res) {
 	scanner.scan(req.params.name)
 		.then(function (result) {
-			console.log('RESULT');
-			console.log(result);
 			res.send(result);
 		})
 		.finally(scanner.exit);
