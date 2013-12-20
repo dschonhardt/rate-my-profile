@@ -10,6 +10,7 @@ var http = require('http');
 var path = require('path');
 
 var scanner = require('./lib/scanner');
+var profile = require('./lib/profile');
 
 var app = express();
 
@@ -33,7 +34,13 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-require('./main.js')(app);
+// GET - /okcupid/loribellz
+app.get('/:profile/:username', function (req, res) {
+	var site = require('./lib/profiles/' + req.params.profile);
+	profile(site, req.params.username).get().then(function (result) {
+		res.send(result);
+	});
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
