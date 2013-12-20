@@ -36,7 +36,6 @@ app.get('/users', user.list);
 
 // GET - /okcupid/loribellz
 app.get('/:datingSite/:username', function (req, res) {
-	var site = require('./lib/profiles/' + req.params.datingSite);
 	var user = new User(req.params.username);
 
 	user.getDatingProfile(req.params.datingSite).then(function (profile) {
