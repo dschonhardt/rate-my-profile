@@ -10,7 +10,7 @@ var http = require('http');
 var path = require('path');
 
 var scanner = require('./lib/scanner');
-var User = require('./lib/profile');
+var User = require('./lib/user');
 
 var app = express();
 
