@@ -27,16 +27,15 @@ describe('scanner', function () {
 		});
 		it('should resolve promise with the created page', function () {
 			// arrange
-			var ph = sandbox.stub({ createPage: function () { } }),
-				page = {};
+			var ph = {};
 
 			fakePhantom.create.callsArgWith(0, ph);
-			ph.createPage.callsArgWith(0, page);
 
 			// act
 			return scanner.open().then(function (res) {
 				// assert
-				expect(res).to.equal(page);
+				expect(res).to.equal(ph);
+				expect(scanner.ph).to.equal(ph);
 			});
 		});
 	});
@@ -46,18 +45,21 @@ describe('scanner', function () {
 			// arrange
 			var url = 'http://www.google.com',
 				data = {},
-				scrapedData = {};
+				scrapedData = {},
+				page = sandbox.stub({ open: function () { }, evaluate: function () { }, close: function () { } });
 
-			scanner.phantomPage = sandbox.stub({ open: function () { }, evaluate: function () { }});
-			scanner.phantomPage.open.callsArg(1);
-			scanner.phantomPage.evaluate.callsArgWith(1, scrapedData);
+			scanner.ph = sandbox.stub({ createPage: function () { } });
+			scanner.ph.createPage.callsArgWith(0, page);	
+			page.open.callsArg(1);
+			page.evaluate.callsArgWith(1, scrapedData);
 
 			// act
 			return scanner.scan(url, data).then(function (result) {
 				// assert
 				expect(result).to.equal(scrapedData);
-				expect(scanner.phantomPage.open.calledOnce).to.be.ok;
-				expect(scanner.phantomPage.evaluate.getCall(0).args[2]).to.equal(data);
+				expect(page.open.calledOnce).to.be.ok;
+				expect(page.close.calledOnce).to.be.ok;
+				expect(page.evaluate.getCall(0).args[2]).to.equal(data);
 			});
 		});
 
