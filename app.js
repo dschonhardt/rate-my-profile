@@ -10,7 +10,7 @@ var http = require('http');
 var path = require('path');
 
 var scanner = require('./lib/scanner');
-var profile = require('./lib/profile');
+var User = require('./lib/profile');
 
 var app = express();
 
@@ -35,10 +35,12 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 
 // GET - /okcupid/loribellz
-app.get('/:profile/:username', function (req, res) {
-	var site = require('./lib/profiles/' + req.params.profile);
-	profile(site, req.params.username).get().then(function (result) {
-		res.send(result);
+app.get('/:datingSite/:username', function (req, res) {
+	var site = require('./lib/profiles/' + req.params.datingSite);
+	var user = new User(req.params.username);
+
+	user.getDatingProfile(req.params.datingSite).then(function (profile) {
+		res.send(profile);
 	});
 });
 
