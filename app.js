@@ -8,7 +8,6 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-var _ = require('lodash');
 
 var scanner = require('./lib/scanner');
 
@@ -34,29 +33,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-scanner.open();
-var okcupidProfiles = [];
-
-
-app.get('/:profile/:name', function (req, res) {
-	var profile,
-		result = _.find(okcupidProfiles, { username: req.params.username });
-
-	if (result) {
-		res.send(result);
-		return;
-	}
-	console.log('scanning');
-	profile = require('./lib/profiles/' + req.params.profile);
-
-	scanner.scan(profile.url(req.params.name), profile.config())
-		.then(function (result) {
-			okcupidProfiles.push(result);
-			res.send(result);
-		})
-		.finally(scanner.exit);
-
-});
+require('./main.js')(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
