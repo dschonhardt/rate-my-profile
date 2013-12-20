@@ -8,3 +8,5 @@ chai.use(require("chai-as-promised"));
 require("mocha-as-promised")();
 
 requireHijack = require('require-hijack');
+
+Q = require('q');

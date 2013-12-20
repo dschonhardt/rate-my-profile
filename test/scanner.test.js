@@ -41,6 +41,28 @@ describe('scanner', function () {
 	});
 
 	describe('scan(url, data)', function () {
+		it('should call open if ph does not exist', function () {
+			// arrange
+			var url = 'http://www.google.com',
+				data = {},
+				result = {};
+
+			scanner.ph = null;
+			sandbox.stub(scanner, 'open', function () {
+				sandbox.stub(scanner, 'scan').returns(Q(result));
+				return Q(true);
+			});
+
+			// act
+			return scanner.scan(url, data).then(function (profileData) {
+				// assert
+				expect(profileData).to.equal(result);
+				expect(scanner.open.calledOnce).to.be.ok;
+				expect(scanner.scan.calledOnce).to.be.ok;
+				expect(scanner.scan.calledWithExactly(url, data)).to.be.ok;
+			});
+		});
+
 		it('should open the page at the given URL and evaluate the scraper on it returning the result', function () {
 			// arrange
 			var url = 'http://www.google.com',
