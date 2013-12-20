@@ -1,0 +1,16 @@
+{
+  "name": "rate-my-profile",
+  "version": "0.0.0",
+  "homepage": "https://github.com/adamterlson/rate-my-profile",
+  "authors": [
+    "adam terlson <adam.terlson@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
