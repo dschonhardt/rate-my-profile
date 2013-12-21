@@ -5,6 +5,11 @@ var sandbox,
 		bar: '#bar',
 		baz: '#baz'
 	},
+	gapConfig = {
+		foo: '#foo',
+		bar: null,
+		baz: '#baz'
+	},
 	nestedConfig = {
 		foo: {
 			bar: '#bar',
@@ -123,6 +128,32 @@ describe('scraper', function () {
 				foo: 'SRC_RESULT_#foo',
 				bar: 'SRC_RESULT_#bar',
 				baz: 'SRC_RESULT_#baz'
+			});
+		});
+	});
+
+	describe('gap in config', function () {
+		it('should return null for the gap', function () {
+			expect(scraper(gapConfig)).to.eql({
+				foo: 'RESULT_#foo',
+				bar: null,
+				baz: 'RESULT_#baz'
+			});
+		});
+	});
+
+	describe('not found', function () {
+		beforeEach(function () {
+			sandbox.stub(document, 'querySelectorAll', function (arg) {
+				return [];
+			});
+		});
+
+		it('should set the value to null if the selector returns nothing', function () {
+			expect(scraper(flatConfig)).to.eql({
+				foo: null,
+				bar: null,
+				baz: null
 			});
 		});
 	});
