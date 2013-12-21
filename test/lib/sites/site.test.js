@@ -1,6 +1,6 @@
 var sandbox;
 
-scanner = require('../../../lib/sites/site');
+scanner = require('../../../app/sites/site');
 
 describe('site', function () {
 	beforeEach(function () {

@@ -9,8 +9,8 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 
-var scanner = require('./lib/scanner');
-var User = require('./lib/user');
+var scanner = require('./app/scanner');
+var User = require('./app/user');
 
 var app = express();
 

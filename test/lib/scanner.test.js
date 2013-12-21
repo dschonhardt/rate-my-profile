@@ -5,7 +5,7 @@ var requireHijack = require('require-hijack'),
 
 requireHijack.replace('phantom').with(fakePhantom);
 
-scanner = require('../../lib/scanner');
+scanner = require('../../app/scanner');
 
 describe('scanner', function () {
 	beforeEach(function () {

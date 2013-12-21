@@ -1,5 +1,5 @@
 var sandbox,
-	scraper = require('../../lib/scraper'),
+	scraper = require('../../app/scraper'),
 	flatConfig = {
 		foo: '#foo',
 		bar: '#bar',
