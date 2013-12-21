@@ -28,8 +28,8 @@
     "grunt-modernizr": "~0.4.1"
   },
   "scripts": {
-    "test": "mocha --reporter spec --recursive --ui bdd",
-    "test-coverage": "istanbul cover _mocha -- --reporter spec --recursive --ui bdd",
+    "test": "mocha -r test/common.js --reporter spec --recursive --ui bdd",
+    "test-coverage": "istanbul cover _mocha -- -r test/common.js --reporter spec --recursive --ui bdd",
     "start": "node app.js"
   },
   "repository": "",

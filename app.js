@@ -8,11 +8,13 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var controllers = require('./app/controllers');
 
-var scanner = require('./app/scanner');
-var User = require('./app/user');
+var scanner = require('./lib/scanner');
 
 var app = express();
+
+controllers(app);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -33,15 +35,6 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-
-// GET - /okcupid/loribellz
-app.get('/:datingSite/:username', function (req, res) {
-	var user = new User(req.params.username);
-
-	user.getDatingProfile(req.params.datingSite).then(function (profile) {
-		res.send(profile);
-	});
-});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

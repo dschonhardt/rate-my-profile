@@ -1,12 +1,12 @@
 var requireHijack = require('require-hijack'),
-	sites = require('../../app/sites'),
+	sites = require('../../../app/models/sites'),
 	fakeSites = sinon.stub(sites),
 	User,
 	sandbox;
 
-requireHijack.replace('../../app/sites').with(fakeSites);
+requireHijack.replace('../../../app/models/sites').with(fakeSites);
 
-User = require('../../app/user');
+User = require('../../../app/models/user');
 
 describe('user', function () {
 	var user;

@@ -1,5 +1,5 @@
 var _ = require('lodash'),
-	scanner = require('../../lib/scanner'),
+	scanner = require('../../../lib/scanner'),
 	Q = require('q');
 
 var profiles = [];
