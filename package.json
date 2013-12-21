@@ -11,7 +11,8 @@
     "express": "3.4.0",
     "jshtml": "*",
     "less-middleware": "*",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "mongoose": "~3.8.3"
   },
   "devDependencies": {
     "lodash": "~2.2.1",
