@@ -1,8 +1,8 @@
 var sandbox;
 
-scanner = require('../../../lib/sites/okcupid');
+scanner = require('../../../lib/sites/site');
 
-describe('okcupid', function () {
+describe('site', function () {
 	beforeEach(function () {
 		sandbox = sinon.sandbox.create();
 	});
