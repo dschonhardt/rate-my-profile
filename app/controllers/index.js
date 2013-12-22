@@ -1,7 +1,7 @@
 exports = module.exports = function (app) {
 	[
-		'users'
+		'./users'
 	].forEach(function (controller) {
-		require('./' + controller)(app);
+		require(controller)(app);
 	});
 }
