@@ -10,3 +10,4 @@ require("mocha-as-promised")();
 requireHijack = require('require-hijack');
 
 Q = require('q');
+mongoose = require('mongoose');

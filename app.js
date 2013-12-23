@@ -1,41 +1,38 @@
+var express = require('express'),
+	fs = require('fs'),
+	passport = require('passport');
 
 /**
- * Module dependencies.
+ * Main application entry file.
+ * Please note that the order of loading is important.
  */
 
-var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
-var http = require('http');
-var path = require('path');
-var controllers = require('./app/controllers');
+// Load configurations
+// if test env, load example file
+var env = process.env.NODE_ENV || 'development',
+	config = require('./config/config')[env],
+	mongoose = require('mongoose');
 
-var scanner = require('./lib/scanner');
+// Bootstrap db connection
+mongoose.connect(config.db);
+
+// Bootstrap models
+require('./app/models')();
+
+// bootstrap passport config
+require('./config/passport')(passport, config);
 
 var app = express();
+// express settings
+require('./config/express')(app, config, passport);
 
-controllers(app);
+// Bootstrap routes
+require('./app/controllers')(app, passport);
 
-// all environments
-app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jshtml');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(app.router);
-app.use(require('less-middleware')({ src: __dirname + '/public' }));
-app.use(express.static(path.join(__dirname, 'public')));
+// Start the app by listening on <port>
+var port = process.env.PORT || 3000;
+app.listen(port);
+console.log('Express app started on port '+port);
 
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
-
-app.get('/', routes.index);
-app.get('/users', user.list);
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+// expose app
+exports = module.exports = app;

@@ -1,5 +1,6 @@
 
-var User = require('../models/user');
+var mongoose = require('mongoose'),
+	User = mongoose.model('User');
 
 // User controller
 
@@ -10,8 +11,9 @@ exports = module.exports = function register (app) {
 
 	// GET - /loribellz/okcupid
 	app.get('/:username/:datingSite', function (req, res) {
-		var user = new User(req.params.username);
-
+		var user = new User();
+		user.username = req.params.username;
+		
 		user.getDatingProfile(req.params.datingSite).then(function (profile) {
 			res.send(profile);
 		});
