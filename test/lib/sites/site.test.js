@@ -1,6 +1,6 @@
 var sandbox;
 
-var site = require('../../../../app/models/sites/site');
+var site = require('../../../lib/sites/site');
 
 describe('site', function () {
 	beforeEach(function () {

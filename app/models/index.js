@@ -4,4 +4,4 @@ exports = module.exports = function (app) {
 	].forEach(function (model) {
 		require(model);
 	});
-}
+};

@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
 	crypto = require('crypto'),
 	_ = require('lodash'),
-	sites = require('./sites');
+	sites = require('../../lib/sites');
 
 /**
  * User Schema

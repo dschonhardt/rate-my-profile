@@ -1,9 +1,9 @@
 var requireHijack = require('require-hijack'),
-	sites = require('../../../app/models/sites'),
+	sites = require('../../../lib/sites'),
 	fakeSites = sinon.stub(sites),
 	sandbox;
 
-requireHijack.replace('../../../app/models/sites').with(fakeSites);
+requireHijack.replace('../../../lib/sites').with(fakeSites);
 
 User = require('../../../app/models/user');
 
