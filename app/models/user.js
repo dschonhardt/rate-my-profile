@@ -18,8 +18,7 @@ var UserSchema = new Schema({
 	username: { type: String, default: '' },
 	hashed_password: { type: String, default: '' },
 	salt: { type: String, default: '' },
-	authToken: { type: String, default: '' },
-	snapshots: [{ site: String, date: Date, profile: {} }]
+	authToken: { type: String, default: '' }
 });
 
 /**
@@ -122,3 +121,6 @@ UserSchema.methods = {
 }
 
 mongoose.model('User', UserSchema);
+
+
+require('./user.bootstrap');
