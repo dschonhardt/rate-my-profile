@@ -118,7 +118,7 @@ UserSchema.methods = {
 		var site = sites[datingSiteName];
 		return site.getProfile(this.username); // Should load this dating site username from user's profile
 	}
-}
+};
 
 mongoose.model('User', UserSchema);
 
