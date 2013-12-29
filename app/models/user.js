@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
 	crypto = require('crypto'),
 	_ = require('lodash'),
+	Q = require('q'),
 	sites = require('../../lib/sites');
 
 /**
@@ -114,9 +115,23 @@ UserSchema.methods = {
 		}
 	},
 
-	getDatingProfile: function (datingSiteName) {
-		var site = sites[datingSiteName];
-		return site.getProfile(this.username); // Should load this dating site username from user's profile
+	getSnapshots: function (datingSite) {
+		var Snapshot = mongoose.model('Snapshot');
+
+		return Q.nfcall(Snapshot.find.bind(Snapshot), { 
+			datingSite: datingSite,
+			username: this.username
+		});
+	},
+
+	takeSnapshot: function (datingSite) {
+		var Snapshot = mongoose.model('Snapshot'),
+			snapshot = new Snapshot({ 
+				datingSite: datingSite,
+				username: this.username
+			});
+
+		return snapshot.take();
 	}
 };
 

@@ -11,3 +11,5 @@ requireHijack = require('require-hijack');
 
 Q = require('q');
 mongoose = require('mongoose');
+
+app = require('../app');

@@ -10,6 +10,11 @@ module.exports = {
     }
   },
   test: {
+    db: 'mongodb://localhost/ratemyprofile_test',
+    root: rootPath,
+    app: {
+      name: 'Rate My Profile - Testing'
+    }
   },
   production: {}
 }

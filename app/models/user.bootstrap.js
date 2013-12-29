@@ -19,4 +19,20 @@ User.find(function (err, users) {
 			console.error(err);
 		});
 	}
+	else {
+		users.forEach(function (user) {
+			debugger;
+			user.getSnapshots('okcupid').then(function (results) {
+				debugger;
+				console.log(results);
+				if (!results || !results.length) {
+					user.takeSnapshot('okcupid').then(function (snapshot) {
+						debugger;
+						console.log(snapshot);
+					});
+				}
+			});
+		});
+	}
 });
+*/

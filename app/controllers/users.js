@@ -11,11 +11,17 @@ exports = module.exports = function register (app) {
 
 	// GET - /loribellz/okcupid
 	app.get('/:username/:datingSite', function (req, res) {
-		var user = new User();
-		user.username = req.params.username;
+		var user = new User({ username: req.params.username });
 		
-		user.getDatingProfile(req.params.datingSite).then(function (profile) {
-			res.send(profile);
+		user.getSnapshots(req.params.datingSite).then(function (profiles) {
+			if (!profiles || !profiles.length) {
+				user.takeSnapshot(req.params.datingSite).then(function (snapshot) {
+					res.send([snapshot]);
+				});
+			}
+			else {
+				res.send(profiles);
+			}
 		});
 	});
 };
