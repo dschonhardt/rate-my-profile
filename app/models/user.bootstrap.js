@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
 	User = mongoose.model('User');
-
+/*
 User.find(function (err, users) {
 	if (err) // TODO handle err
 		console.error(err);
