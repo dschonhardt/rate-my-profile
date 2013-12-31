@@ -7,7 +7,9 @@ var mongoose = require('mongoose'),
 
 var UserController = {
 	read: function (id) {
-		User.findOne()
+		return User.findById(id, 'username name email').exec(function (err, res) {
+			return res;
+		});
 	},
 
 	create: function (body) {
@@ -18,8 +20,11 @@ var UserController = {
 
 exports = module.exports = {
 	bind: function (app) {
-		app.get('/user', function (req, res) {
-			res.send('This will be from the controller defined above.');
+		app.get('/user/:id', function (req, res) {
+			UserController.read(req.params.id).then(function (user) {
+				if (user) res.send(user);
+				else res.send(404);
+			});
 		});
 
 		// GET - /loribellz/okcupid
