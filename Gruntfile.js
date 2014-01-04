@@ -15,7 +15,7 @@ module.exports = function(grunt) {
       "devFile" : "bower_components/modernizr/modernizr.js",
 
       // [REQUIRED] Path to save out the built file.
-      "outputFile" : "public/javascripts/lib/modernizr/modernizr-custom.js",
+      "outputFile" : "public/javascripts/modernizr/modernizr/modernizr-custom.js",
 
       // Based on default settings on http://modernizr.com/download/
       "extra" : {
