@@ -14,9 +14,9 @@ var mongoose = require('mongoose'),
  */
 
 var SnapshotSchema = new Schema({
-	userId: { type: String, default: '' },
-	datingSiteUsername: { type: String, default: '' },
-	datingSite: { type: String, default: '' },
+	userId: { type: String, default: '', required: true },
+	datingSiteUsername: { type: String, default: '', required: true },
+	datingSite: { type: String, default: '', required: true },
 	date: { type: Date, default: Date.now },
 	data: {}
 });
@@ -30,23 +30,11 @@ var SnapshotSchema = new Schema({
  * Validations
  */
 
- SnapshotSchema.path('userId').validate(function (id) {
-	return id.length;
-}, 'userId not found, missing or invalid');
-
 SnapshotSchema.path('userId').validate(function (id, done) {
 	User.findById(id).exec(function (err, res) {
 		done(!!res);
 	});
 }, 'userId not found, missing or invalid');
-
-SnapshotSchema.path('datingSiteUsername').validate(function (name) {
-	return name.length;
-}, 'Dating site username cannot be blank');
-
-SnapshotSchema.path('datingSite').validate(function (datingSite) {
-	return datingSite.length;
-}, 'Must specify dating site');
 
 SnapshotSchema.path('datingSite').validate(function (name) {
 	try {
@@ -62,10 +50,6 @@ SnapshotSchema.path('datingSite').validate(function (name) {
  */
 
 SnapshotSchema.pre('save', function(next) {
-	if (this.data) {
-		return next();
-	}
-
 	var schema = require('../../lib/sites/' + this.datingSite);
 
 	scanner.scan(schema.url(this.datingSiteUsername), schema.config()).then(function (data) {

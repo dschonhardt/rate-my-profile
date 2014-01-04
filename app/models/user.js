@@ -14,10 +14,10 @@ var mongoose = require('mongoose'),
  */
 
 var UserSchema = new Schema({
-	name: { type: String, default: '' },
-	email: { type: String, default: '' },
-	username: { type: String, default: '' },
-	hashed_password: { type: String, default: '' },
+	name: { type: String, default: '', required: true },
+	email: { type: String, default: '', required: true },
+	username: { type: String, default: '', required: true },
+	hashed_password: { type: String, default: '', required: true },
 	salt: { type: String, default: '' },
 	authToken: { type: String, default: '' }
 });
@@ -43,14 +43,6 @@ var validatePresenceOf = function (value) {
 	return value && value.length;
 };
 
-UserSchema.path('name').validate(function (name) {
-	return name.length;
-}, 'Name cannot be blank');
-
-UserSchema.path('email').validate(function (email) {
-	return email.length;
-}, 'Email cannot be blank');
-
 UserSchema.path('email').validate(function (email, fn) {
 	var User = mongoose.model('User');
 
@@ -68,11 +60,6 @@ UserSchema.path('email').validate(function (email, fn) {
 UserSchema.path('username').validate(function (username) {
 	return username.length >= 3
 }, 'Username must be at least three characters');
-
-UserSchema.path('hashed_password').validate(function (hashed_password) {
-	return hashed_password.length
-}, 'Password cannot be blank');
-
 
 /**
  * Pre-save hook
