@@ -1,6 +1,7 @@
 exports = module.exports = function (app) {
 	[
-		'./users'
+		'./users',
+		'./snapshots'
 	].forEach(function (controller) {
 		require(controller).bind(app);
 	});
