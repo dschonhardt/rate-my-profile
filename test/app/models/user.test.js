@@ -3,60 +3,21 @@ var requireHijack = require('require-hijack'),
 	sandbox;
 
 describe('user', function () {
-	var user, snapshots;
+	var user, snapshots, username = 'loribellz';
 
-    afterEach(function (done){
+    afterEach(function (){
 		sandbox.restore();
-        mongoose.connection.db.dropDatabase(done);
     });
 
-	beforeEach(function (done) {
+	beforeEach(function () {
 		sandbox = sinon.sandbox.create();
-
-		var users = [
-			{
-				username: 'loribellz',
-				name: 'name',
-				email: 'email342@email.com',
-				password: 'foo'
-			},
-			{
-				username: 'sallysue',
-				name: 'name',
-				email: 'emaisafl@email.com',
-				password: 'foo'
-			}
-		];
-
-		(mongoose.model('User')).create(users[0], users[1]).then(function (user1, user2) {
-			user = user1;
-
-			snapshots = [
-				{ datingSite: 'okcupid', datingSiteUsername: 'loribellz', userId: user1.get('_id') },
-				{ datingSite: 'okcupid', datingSiteUsername: 'loribellz2', userId: user2.get('_id') }
-			];
-
-			var promises = snapshots.map(function (snapshot) {
-				var dfd = Q.defer();
-				var foo = new (mongoose.model('Snapshot'))(snapshot);
-
-				foo.save(function () {
-					dfd.resolve();
-				});
-				return dfd.promise;
-			});
-
-			Q.all(promises).then(function () {
-				done();
-			});
-		}, done);
 	});
 
 	describe('getSnapshots(datingSite)', function () {
-		it('should return nothing when the id is not defined', function () {
-			user._id = undefined;
-			return user.getSnapshots('okcupid').then(function (results) {
-				expect(results.length).to.equal(0);
+		before(function (done) {
+			mongoose.model('User').findOne({ username: username }, function (err, res) {
+				user = res;
+				done();
 			});
 		});
 
@@ -69,7 +30,7 @@ describe('user', function () {
 		it('should return only this users snapshots', function (done) {
 			return user.getSnapshots('okcupid').then(function (results) {
 				expect(results.length).to.equal(1);
-				expect(results[0].datingSiteUsername).to.eql(snapshots[0].datingSiteUsername);
+				expect(results[0].datingSiteUsername).to.eql(username);
 			});
 		});
 	});
