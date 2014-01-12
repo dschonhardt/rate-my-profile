@@ -50,17 +50,21 @@ SnapshotSchema.path('datingSite').validate(function (name) {
  */
 
 SnapshotSchema.pre('save', function(next) {
-	var schema = require('../../lib/sites/' + this.datingSite);
-
-	scanner.scan(schema.url(this.datingSiteUsername), schema.config()).then(function (data) {
-		this.data = data;
-	
-		next();
-	}.bind(this));
+	next();
 });
 
 /**
  * Methods
  */
+
+SnapshotSchema.methods = {
+	take: function () {
+		var schema = require('../../lib/sites/' + this.datingSite);
+		return scanner.scan(schema.url(this.datingSiteUsername), schema.config()).then(function (data) {
+			this.data = data;
+			return this;
+		}.bind(this));
+	}
+};
 
 mongoose.model('Snapshot', SnapshotSchema);

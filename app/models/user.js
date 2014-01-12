@@ -104,10 +104,9 @@ UserSchema.methods = {
 
 	getSnapshots: function (datingSite) {
 		var Snapshot = mongoose.model('Snapshot');
-
 		return Q.nfcall(Snapshot.find.bind(Snapshot), { 
 			datingSite: datingSite,
-			username: this.username
+			userId: this._id
 		});
 	},
 
@@ -115,7 +114,7 @@ UserSchema.methods = {
 		var Snapshot = mongoose.model('Snapshot'),
 			snapshot = new Snapshot({ 
 				datingSite: datingSite,
-				username: this.username
+				userId: this._id
 			});
 
 		return snapshot.take();

@@ -13,7 +13,12 @@ var SnapshotController = {
 	},
 
 	create: function (body) {
-		return Snapshot.create(body);
+		return Snapshot.create(body).then(function (snapshot) {
+			return snapshot.take().then(function () {
+				snapshot.save();
+				return snapshot;
+			});
+		});
 	},
 
 	delete: function (id) {
